@@ -4,30 +4,27 @@ package {nodejs:
 ensure => installed,
 provider => chocolatey,
 }
+
 exec {'kill':
-cwd => 'C:\Windows\System32\node-js-sample',
-command => 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe taskkill /F/IM node.exe',
-path => '/usr/local/bin/:/bin',
-}
-exec {'remove':
-cwd => 'C:\Windows\System32',
-command => 'rm node-js-sample',
-path => '/usr/local/bin/:/bin',
+cwd => 'C:\WINDOWS\system32',
+command => 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe taskkill /IM node.exe /F',
 }
 
-file {'C:\Windows\System32\node-js-sample':
+file {'C:\node-js-sample':
 source => 'puppet:///modules/nodejs/node-js-sample',
+mode => '0755',
 recurse => 'true',
 }
 
 exec {'npm install':
-cwd => 'C:\Windows\System32\node-js-sample',
+cwd => 'C:\node-js-sample',
 command => 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe npm install',
-path => '/usr/local/bin/:/bin',
+path => 'C:\Program Files\nodejs',
 }
 exec {'npm start':
-cwd => 'C:\Windows\System32\node-js-sample',
+cwd => 'C:\node-js-sample',
 command => 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe npm start',
-path => '/usr/local/bin/:/bin',
+path => 'C:\Program Files\nodejs',
 }
 }
+
